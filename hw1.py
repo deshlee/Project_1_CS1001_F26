@@ -16,7 +16,12 @@ def vowel_count(text: str) -> int:
     # TODO: Input(s): explain each parameter.
     # TODO: Output: explain what the function returns.
     # TODO: Replace this exception with your implementation.
-    raise NotImplementedError("Part 1: implement vowel_count")
+    word=text.lower()
+    number=0
+    for char in word:
+        if char=="a" or char=="e" or char=="i" or char=="o" or char=="u":
+            number+=1
+    return number
 
 
 # Part 2: short_lists
@@ -25,7 +30,11 @@ def short_lists(items: list[list[int]]) -> list[list[int]]:
     # TODO: Input(s): explain each parameter.
     # TODO: Output: explain what the function returns.
     # TODO: Replace this exception with your implementation.
-    raise NotImplementedError("Part 2: implement short_lists")
+    another=[]
+    for l in items:
+        if len(l)==2:
+            another.append(l)
+    return another
 
 
 # Part 3: ascending_pairs
@@ -34,7 +43,18 @@ def ascending_pairs(items: list[list[int]]) -> list[list[int]]:
     # TODO: Input(s): explain each parameter.
     # TODO: Output: explain what the function returns.
     # TODO: Replace this exception with your implementation.
-    raise NotImplementedError("Part 3: implement ascending_pairs")
+    newList=[]
+    for i in items:
+        if len(i)==2:
+            if i[0]>i[1]:
+                value=i.pop(0)
+                i.append(value)
+                newList.append(i)
+            else:
+                newList.append(i)
+        else:
+            newList.append(i)
+    return newList
 
 
 # Part 4: add_prices
@@ -43,8 +63,12 @@ def add_prices(first: data.Price, second: data.Price) -> data.Price:
     # TODO: Input(s): explain each parameter.
     # TODO: Output: explain what the function returns.
     # TODO: Replace this exception with your implementation.
-    raise NotImplementedError("Part 4: implement add_prices")
-
+    totalCents=first.cents+second.cents
+    totalDollars=first.dollars+second.dollars
+    while totalCents>100:
+        totalCents=totalCents-100
+        totalDollars+=1
+    return data.Price(totalDollars, totalCents)
 
 # Part 5: rectangle_area
 def rectangle_area(rectangle: data.Rectangle) -> float:
@@ -52,8 +76,17 @@ def rectangle_area(rectangle: data.Rectangle) -> float:
     # TODO: Input(s): explain each parameter.
     # TODO: Output: explain what the function returns.
     # TODO: Replace this exception with your implementation.
-    raise NotImplementedError("Part 5: implement rectangle_area")
-
+    x1=rectangle.top_left.x
+    x2=rectangle.bottom_right.x
+    y1=rectangle.top_left.y
+    y2=rectangle.bottom_right.y
+    deltaX=x1-x2
+    deltaY=y1-y2
+    if deltaX<0:
+        deltaX=deltaX*-1
+    elif deltaY<0:
+        deltaY=deltaY*-1
+    return deltaX*deltaY
 
 # Part 6: books_by_author
 def books_by_author(author: str, books: list[data.Book]) -> list[data.Book]:
@@ -61,7 +94,11 @@ def books_by_author(author: str, books: list[data.Book]) -> list[data.Book]:
     # TODO: Input(s): explain each parameter.
     # TODO: Output: explain what the function returns.
     # TODO: Replace this exception with your implementation.
-    raise NotImplementedError("Part 6: implement books_by_author")
+    listing=[]
+    for book in books:
+        if author in book.authors:
+            listing.append(book)
+    return listing
 
 
 # Part 7: circle_bound
@@ -70,8 +107,7 @@ def circle_bound(rectangle: data.Rectangle) -> data.Circle:
     # TODO: Input(s): explain each parameter.
     # TODO: Output: explain what the function returns.
     # TODO: Replace this exception with your implementation.
-    raise NotImplementedError("Part 7: implement circle_bound")
-
+    return data.Circle(data.Point((rectangle.top_left.x+rectangle.bottom_right.x)/2, (rectangle.top_left.y+rectangle.bottom_right.y)/2), ((rectangle.top_left.x-rectangle.bottom_right.x)**2+(rectangle.top_left.y-rectangle.bottom_right.y)**2)**0.5)
 
 # Part 8: below_pay_average
 def below_pay_average(employees: list[data.Employee]) -> list[str]:
@@ -79,4 +115,14 @@ def below_pay_average(employees: list[data.Employee]) -> list[str]:
     # TODO: Input(s): explain each parameter.
     # TODO: Output: explain what the function returns.
     # TODO: Replace this exception with your implementation.
-    raise NotImplementedError("Part 8: implement below_pay_average")
+    listy=[]
+    pay=0
+    if len(employees)==0:
+        return listy
+    for e in employees:
+        pay+=e.pay_rate
+    pay=pay/len(employees)
+    for employee in employees:
+        if employee.pay_rate<pay:
+            listy.append(employee.name)
+    return listy
